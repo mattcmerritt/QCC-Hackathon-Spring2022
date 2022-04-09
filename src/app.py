@@ -1,4 +1,5 @@
 from gtts import gTTS
+from playsound import playsound
 import os
 
 from PIL import Image
@@ -20,8 +21,11 @@ def readAloud(currentString):
 
     myTTS.save(r"files\currentString.mp3")
 
-    os.system(r"files\currentString.mp3")
+    path = os.getcwd() + r"\files\currentString.mp3"
 
+    playsound(path)
+
+# code for reading characters from image to string
 def readImage(imgPath):
     return pytesseract.image_to_string(Image.open(imgPath))
 
