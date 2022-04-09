@@ -14,7 +14,7 @@ def screenshot(label):
     label["text"] = "Screenshot taken!"
 
     # If you want to save the image, uncomment this
-    image.save("screenshot.png", "PNG")
+    image.save(r"files\screenshot.png", "PNG")
 
     create_image_window()
 
@@ -34,7 +34,7 @@ def create_window():
 
 def create_image_window():
 
-    original = Image.open("screenshot.png")
+    original = Image.open(r"files\screenshot.png")
     small = original.resize((int(original.width/2), int(original.height/2)), Image.ANTIALIAS)
     img = ImageTk.PhotoImage(small)
 
@@ -42,24 +42,23 @@ def create_image_window():
 
     window.title('Screenshot')
     window.geometry(str(int(original.width/2)) + "x" + str(int(original.height/2)) + "+10+20")
-    window.bind('<Button-1>', lambda onclick : set_top_left(window))
-    window.bind('<ButtonRelease-1>', lambda onclick : set_bottom_right_and_crop(window, small))
+
+    def set_top_left(event):
+        global topleft 
+        topleft = (event.x, event.y)
+
+    def set_bottom_right_and_crop(event):
+        global bottomright 
+        bottomright = (event.x, event.y)
+        small.crop((topleft[0], topleft[1], bottomright[0], bottomright[1])).save(r"files\cropped.png", "PNG")
+
+    window.bind('<Button-1>', set_top_left)
+    window.bind('<ButtonRelease-1>', set_bottom_right_and_crop)
 
     img_label = Label(window, image=img)
     img_label.pack()
 
     window.mainloop()
-
-def set_top_left(window):
-    global topleft 
-    topleft = (window.winfo_pointerx(), window.winfo_pointery())
-    print("down")
-
-def set_bottom_right_and_crop(window, image):
-    global bottomright 
-    bottomright = (window.winfo_pointerx(), window.winfo_pointery())
-    image.crop((topleft[0], topleft[1], bottomright[0], bottomright[1])).save("cropped.png", "PNG")
-    print("up")
 
 
 
