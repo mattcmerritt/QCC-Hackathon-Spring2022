@@ -1,15 +1,10 @@
-from importlib.resources import files
 from gtts import gTTS
 from pygame import mixer
 import os
 import time
-
 import pytesseract
-
 from tkinter import *
 from PIL import Image, ImageTk
-
-from threading import Thread
 import pyautogui
 
 debug = True
