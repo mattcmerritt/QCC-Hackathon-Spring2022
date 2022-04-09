@@ -125,7 +125,7 @@ def create_image_window():
     def set_bottom_right_and_crop(event):
         global bottomright 
         bottomright = (event.x, event.y)
-        small.crop((topleft[0], topleft[1], bottomright[0], bottomright[1])).save(r"files\cropped.png", "PNG")
+        original.crop((topleft[0]*2, topleft[1]*2, bottomright[0]*2, bottomright[1]*2)).save(r"files\cropped.png", "PNG")
         read_aloud(read_image(r"files\cropped.png"))
         create_audio_window()
 
