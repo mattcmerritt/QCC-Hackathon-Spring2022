@@ -1,3 +1,4 @@
+from importlib.resources import files
 from gtts import gTTS
 from pygame import mixer
 import os
@@ -22,14 +23,17 @@ pytesseract.pytesseract.tesseract_cmd = dir
 
 # setting up pygame mixer
 mixer.init()
+filesRead = 0
 
 # code for playing the sound
 def read_aloud(currentString):
     myTTS = gTTS(text = currentString, lang = 'en', slow = False)
+    
+    global filesRead
+    filesRead += 1
+    myTTS.save(r"files\currentString" + str(filesRead) + ".mp3")
 
-    myTTS.save(r"files\currentString.mp3")
-
-    path = os.getcwd() + r"\files\currentString.mp3"
+    path = os.getcwd() + r"\files\currentString" + str(filesRead) + ".mp3"
 
     mixer.music.load(path)
     mixer.music.play()
