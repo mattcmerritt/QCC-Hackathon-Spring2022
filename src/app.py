@@ -76,5 +76,5 @@ def pause(button, pause_img, play_img):
         mixer.music.unpause()
         button.config(image=pause_img)
 
-read_aloud(read_image(r"files\demoImage.png"))
+read_aloud(read_image(r"files\screenshot.png"))
 create_window()

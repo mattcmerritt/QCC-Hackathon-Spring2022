@@ -29,20 +29,18 @@ def create_window():
     window.mainloop()
 
 def create_image_window():
-    window = Toplevel()
-
-    window.title('Screenshot')
-    window.geometry("1000x600+30+40")
 
     original = Image.open("screenshot.png")
 
-    frame = Frame(window, width=int(original.width/2), height=int(original.height/2))
-    frame.place(anchor='center', relx=0.5, rely=0.5)
-
     img = ImageTk.PhotoImage(original.resize((int(original.width/2), int(original.height/2)), Image.ANTIALIAS))
 
-    img_label = Label(frame, image=img)
-    img_label.place(anchor='center', x = 500, y = 300)
+    window = Toplevel()
+
+    window.title('Screenshot')
+    window.geometry(str(int(original.width/2)) + "x" + str(int(original.height/2)) + "+30+40")
+
+    img_label = Label(window, image=img)
+    img_label.pack()
 
     window.mainloop()
 
