@@ -26,8 +26,14 @@ def readAloud(currentString):
     playsound(path)
 
 # code for reading characters from image to string
-def readImage(imgPath):
-    return pytesseract.image_to_string(Image.open(imgPath))
+def readImage(imgPath, isParagraph=True):
+    imgText = pytesseract.image_to_string(Image.open(imgPath))
+
+    if isParagraph:
+        # removing newline characters for better reading sound
+        imgText = imgText.replace('\n', '')
+
+    return imgText
 
 # print(readImage(r"files\demoImage.png"))
 # print(readImage(r"files\demoImage2.png"))
