@@ -1,6 +1,7 @@
 from gtts import gTTS
-from playsound import playsound
+from pygame import mixer
 import os
+import time
 
 from PIL import Image
 import pytesseract
@@ -14,6 +15,8 @@ else:
     dir = input("Please input the path to the Tesseract OCR executable: ")
 pytesseract.pytesseract.tesseract_cmd = dir
 
+# setting up pygame mixer
+mixer.init()
 
 # code for playing the sound
 def readAloud(currentString):
@@ -23,7 +26,17 @@ def readAloud(currentString):
 
     path = os.getcwd() + r"\files\currentString.mp3"
 
-    playsound(path)
+    mixer.music.load(path)
+    mixer.music.play()
+
+    time.sleep(1)
+    mixer.music.pause()
+    time.sleep(1)
+    mixer.music.unpause()
+    time.sleep(1)
+    mixer.music.stop()
+    time.sleep(1)
+    mixer.music.play()
 
 # code for reading characters from image to string
 def readImage(imgPath, isParagraph=True):
